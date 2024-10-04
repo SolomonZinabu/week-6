@@ -26,6 +26,9 @@ IV < 0.02: Not useful for prediction
 0.02 < IV < 0.1: Weak predictor
 0.1 < IV < 0.3: Medium predictor
 IV > 0.3: Strong predictor
+Relevant Reference:
+https://www.listendata.com/2015/03/weight-of-evidence-woe-and-information.html
+Weight of Evidence and Information Value Explained
 4. Credit Scoring Models
 The primary goal of a credit scoring model is to estimate the probability of default (PD) for an individual or business. Models use past data to predict future default behavior.
 
@@ -36,11 +39,17 @@ Decision Trees and Random Forests: Non-linear models that capture complex intera
 Gradient Boosting Machines (GBM): A powerful ensemble technique that typically yields strong results in classification tasks.
 In this challenge, we will likely experiment with multiple models (e.g., Logistic Regression, Random Forest) and evaluate them based on metrics like accuracy, precision, recall, and ROC-AUC.
 
+Relevant Reference:
+https://towardsdatascience.com/how-to-develop-a-credit-risk-model-and-scorecard-91335fc01f03
+Developing a Credit Risk Model and Scorecard
 5. Basel II Capital Accord and Default Definitions
 The Basel II Capital Accord is a regulatory framework that provides guidelines for managing credit risk. It defines how banks should quantify their exposure to risk and maintain sufficient capital reserves to mitigate potential losses. In the context of this challenge, the definition of default may vary, but it generally refers to situations where a borrower fails to meet the terms of a loan or credit agreement, either by missing payments or failing to repay the principal.
 
 Understanding Basel II is essential for aligning the credit scoring model with regulatory standards. This includes defining what constitutes a "bad" (high-risk) customer and ensuring the model complies with guidelines for risk measurement and management.
 
+Relevant Reference:
+https://www.hkma.gov.hk/media/eng/doc/key-functions/financial-infrastructure/alternative_credit_scoring.pdf
+Basel II Overview
 6. Feature Selection for Credit Scoring
 Selecting the right features is critical to building an effective credit scoring model. Based on the data provided, here are some key features we’ll likely use:
 
@@ -51,3 +60,4 @@ In feature engineering (Task 3), we’ll explore these variables and transform t
 
 7. Conclusion
 Understanding credit risk and its components is crucial for building a robust credit scoring model. The RFMS framework and WoE/IV will play key roles in defining and selecting features. By applying models like logistic regression and decision trees, we will be able to predict default risk and assign credit scores to new customers, aligning the system with the business needs of Bati Bank.
+
