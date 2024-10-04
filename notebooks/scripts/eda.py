@@ -1,7 +1,7 @@
 # notebooks/scripts/eda.py
 def summarize_data(df):
     """Generate summary statistics for numerical columns."""
-    return df.describe()
+    return df.describe(include='all')
 
 def check_missing_values(df):
     """Check for missing values in the dataset."""
