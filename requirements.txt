@@ -7,3 +7,5 @@ scikit-learn
 scorecardpy 
 monotonic-binning
 setuptools
+django 
+djangorestframework
