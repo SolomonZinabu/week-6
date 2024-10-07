@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from xverse.transformer import WOE
+from monotonic_binning.monotonic_woe_binning import Binning
+import scorecardpy as sc
 
 # Function to create aggregate features
 def create_aggregate_features(df):
@@ -38,7 +39,7 @@ def extract_temporal_features(df):
 
     return df
 
-# Function for encoding categorical variables
+# Function for encoding categorical variables (now done via WoE)
 def encode_categorical(df, columns, method='one-hot'):
     """Encodes categorical columns using one-hot or label encoding."""
     if not isinstance(columns, list):
@@ -100,58 +101,3 @@ def scale_features(df, columns, method='normalize'):
         raise ValueError("Method must be either 'normalize' or 'standardize'.")
     
     return df
-
-
-# Function to calculate WoE and IV with enhanced error handling
-def calculate_woe_iv(df, target, feature_columns):
-    """Performs Weight of Evidence (WoE) and Information Value (IV) binning."""
-    
-    # Ensure the input is a pandas DataFrame
-    if not isinstance(df, pd.DataFrame):
-        raise ValueError("The input data must be a pandas DataFrame.")
-    
-    # Ensure target and feature columns are in the DataFrame
-    if target not in df.columns:
-        raise KeyError(f"Target column '{target}' is missing from the dataframe.")
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            raise KeyError(f"Feature column '{col}' is missing from the dataframe.")
-        if df[col].dtype != 'object' and not pd.api.types.is_categorical_dtype(df[col]):
-            raise ValueError(f"Feature column '{col}' must be categorical or of type object for WoE calculation.")
-    
-    # Convert columns to categorical if not already done
-    df[feature_columns] = df[feature_columns].astype('category')
-    
-    # Make an explicit copy to avoid chained assignment issues
-    feature_df = df[feature_columns].copy()
-    target_series = df[target].copy()
-
-    # Check types before applying WoE
-    if not isinstance(feature_df, pd.DataFrame):
-        raise TypeError(f"Expected feature_df to be a pandas DataFrame, got {type(feature_df)}.")
-    
-    if not isinstance(target_series, pd.Series):
-        raise TypeError(f"Expected target_series to be a pandas Series, got {type(target_series)}.")
-    
-    print(f"Feature DataFrame shape: {feature_df.shape}, types:\n{feature_df.dtypes}")
-    print(f"Target Series shape: {target_series.shape}, type: {target_series.dtype}")
-    
-    woe_transformer = WOE()
-
-    try:
-        # Apply WoE transformation
-        df_woe = woe_transformer.fit_transform(feature_df, target_series)
-        iv = woe_transformer.woe_df[['Variable', 'IV']].sort_values(by='IV', ascending=False)
-    except Exception as e:
-        raise ValueError(f"Error during WoE/IV calculation: {e}")
-    
-    return df_woe, iv
-
-# # Sample call of the function in your notebook
-# categorical_columns = ['ProductCategory', 'ChannelId']
-# woe_features, iv_values = calculate_woe_iv(data, 'FraudResult', categorical_columns)
-# print("WoE-transformed data:")
-# print(woe_features.head())
-# print("Information Value of features:")
-# print(iv_values)

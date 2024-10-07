@@ -4,3 +4,6 @@ seaborn
 numpy
 xverse 
 scikit-learn 
+scorecardpy 
+monotonic-binning
+setuptools
