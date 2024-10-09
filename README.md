@@ -66,7 +66,7 @@ Weight of Evidence (WoE) and Information Value (IV) calculation using ScorecardP
 
 ### **Part 3: Model Training, API, and Contributing**
 
-```markdown
+
 ## **Model Training**
 
 - The models are trained on features created during the preprocessing stage.
@@ -75,7 +75,6 @@ Weight of Evidence (WoE) and Information Value (IV) calculation using ScorecardP
   2. **Random Forest**
 - Both models are saved as `.pkl` files under the `models/` directory.
   
-Hyperparameter tuning is performed for Random Forest using GridSearchCV.
 
 ## **Model Serving API**
 
@@ -85,6 +84,62 @@ A REST API is created to serve the trained models and allow real-time prediction
 
 ### Step 1: Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/credit-risk-model-api.git
-cd credit-risk-model-api
+git clone https://github.com/SolomonZinabu/week-6-api.git
+cd week-6-api
+
+Step 3: Run the API
+Navigate to the app/ directory:
+
+
+
+cd app
+Run the FastAPI server using Uvicorn:
+
+
+
+uvicorn main:app --reload
+The API will be accessible at http://127.0.0.1:8000.
+
+API Endpoints
+1. POST /logistic-regression/
+Description: Make a prediction using the Logistic Regression model.
+
+Request Body:
+
+json
+
+{
+  "ProductCategory": "airtime",
+  "ChannelId": "3",
+  "Amount": 1000,
+  "Value": 1000,
+  "transaction_hour": 12,
+  "transaction_day": 15
+}
+Response:
+
+json
+
+{
+  "prediction": "0", 
+  "probability": 0.85
+}
+
+2. POST /random-forest/
+Description: Make a prediction using the Random Forest model.
+
+Request Body: Same as above.
+
+Response:
+
+json
+
+{
+  "prediction": "1", 
+  "probability": 0.72
+}
+Contributing
+If you'd like to contribute to this project, feel free to create a pull request or submit an issue.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
